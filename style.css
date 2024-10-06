@@ -6,11 +6,14 @@ body{
 #flex-container-contacts{
     display: flex; 
     justify-content: center;
+    height: fit-content;
 }
 
 #contacts{
     background-color:burlywood;
     padding: 2vh 2vw;
+    min-width: 25vw;
+    border-radius: 2px;
 }
 
 
@@ -38,10 +41,11 @@ body{
     width: 100%;
 }
 
+
 .contact{
     background-color: aliceblue;
     padding: 1vh 1vw;
-    width: 23vw;
+    width:inherit;
     margin: 2vh 0vw;
     border-radius: 8px;
     display: flex;
