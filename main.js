@@ -25,7 +25,7 @@ writeContacts();
 
 //functions
 
-function writeContacts(){
+function writeContacts(){ //skriver ut alla kontakter som finns i objektet contacts
 
     contactDiv.innerHTML = "";
      
@@ -50,13 +50,13 @@ function writeContacts(){
 for (let i = 0; i < contactClass.length; i++) {
     const element = contactClass[i];
 
-    element.addEventListener(`contextmenu`, function(event)
+    element.addEventListener(`contextmenu`, function(event) //sätter eventlistener på varje contacts div (för att kolla ifall man högerklickar på dem eller inte)
     {
         remove(event, element);
     })
 }
 
-function remove(event, contactElement){
+function remove(event, contactElement){ //tar bort objektet/kontakt från arrayen och diven
     event.preventDefault();
     console.log(contactClass)
 
@@ -69,14 +69,14 @@ function remove(event, contactElement){
 }
 
 
-function addContact(){
+function addContact(){ //som dropdown funktionen (visar add contact delen)
     var popUp = document.getElementById("popUp");
     popUp.setAttribute("style", "display: block");
 }
 
 var birthdayInput = document.getElementById("birthdayInput");
 
-function submit(){
+function submit(){ //lägger till inputen vid add contact till objektet
 
     var nameInput = document.getElementById("nameInput");
     var surnameInput = document.getElementById("surnameInput");
@@ -88,7 +88,6 @@ function submit(){
     }
 
     contacts.push(object)
-    
     sort(sortType)
 
 }
@@ -96,7 +95,7 @@ function submit(){
 
 let showing = false;
 
-function dropDown() {
+function dropDown() { //visar dropdownen/sort valen
 
     svg = document.getElementById("svg");
     path = document.getElementById("path");
@@ -119,11 +118,11 @@ function dropDown() {
 
 
 
- function sort(sortType){
+ function sort(sortType){ //sorterar beroende på val
     text = document.getElementById("sort-text");
     text.innerText = sortType.innerText;
 
-    if(sortType.innerText === "A-Z"){
+    if(sortType.innerText === "A-Z"){ //sorterar efter första bokstaven på namnet (A-Z)
 
         let sorted = false;
 
@@ -138,7 +137,7 @@ function dropDown() {
                 }
             }
         }
-    }else if(sortType.innerText === "Age"){
+    }else if(sortType.innerText === "Age"){ //sorterar med ålder (äldst till yngst)
         const date = new Date();
 
         let sorted = false;
@@ -162,7 +161,7 @@ function dropDown() {
                 }
             }
         }
-    }else if(sortType.innerText === "Birthday"){
+    }else if(sortType.innerText === "Birthday"){ //sorterar till födelsedag
 
         let sorted = false;
 
@@ -188,11 +187,14 @@ function dropDown() {
 }
 
 
-function daysTilBD(birthday){
+function daysTilBD(birthday){ //räknar ut dagarna kvar till ett specifikt datum (birthday)
 
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const currentYear = today.getFullYear();
     let nextBirthday = new Date(currentYear, birthday.getMonth(), birthday.getDate());
+    nextBirthday.setHours(0, 0, 0, 0);
 
     if (nextBirthday < today) {
         nextBirthday.setFullYear(currentYear + 1);
@@ -206,7 +208,7 @@ function daysTilBD(birthday){
 var notifyIndex = [];
 var notifyLength = 0; 
 
-function notify(){
+function notify(){ //notification som kommer ifall någon fyller år inom 12 dagar.
 
     for (let i = 0; i < contacts.length; i++) {
         const time = new Date(contacts[i].birthday)
@@ -216,7 +218,7 @@ function notify(){
         if(timeLeft < 12 && !notifyIndex.includes(contacts[i].name + contacts[i].surname + contacts[i].birthday)){
             console.log(contacts[i].name)
 
-            alert(contacts[i].name + "-" + contacts[i].surname + "s birthday is in: " + timeLeft + " days")
+            alert(contacts[i].name + " " + contacts[i].surname + "s birthday is in: " + timeLeft + " days")
             notifyIndex[notifyLength] = contacts[i].name + contacts[i].surname + contacts[i].birthday;
             notifyLength++;
 
@@ -225,6 +227,6 @@ function notify(){
 }
 
 
-setInterval(notify, 1000);
+setInterval(notify, 1000); //kollar varje sekund ifall någon fyller år om 12 dagar.
 
 
